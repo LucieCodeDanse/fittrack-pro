@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represente une séance d'entraînement contenant plusieurs expériences
+ * Represente une séance d'entraînement contenant plusieurs exercices
  */
 public class SeanceSimple {
 
