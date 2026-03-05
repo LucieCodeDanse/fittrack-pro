@@ -51,21 +51,22 @@ public class ExerciceForce extends Exercice {
     }
     public int getSeries(){
         //Methode qui retourne l'attribut series de la classe
-        return this.series;
+        return series;
     }
     public int getRepetitions(){
         //Méthode qui retourne l'attribut repetitions de la classe
-        return this.repetitions;
+        return repetitions;
     }
 
     @Override
     public String toString() {
         //Methode qui retourne l'attribut attributs de la classe mère Exercice et celle de la classe fille
-        if (this.series > 0 && this.repetitions > 0) {
+        if (series > 0 && repetitions > 0) {
             return String.format(" %s \n Series : %d \n Repetitions : %d",
-                    super.toString(),this.series, this.repetitions);
+                    super.toString(), getSeries(), getRepetitions());
+        }else {
+            return super.toString(); //Affichage des attributs de la classe mère, Exercice
         }
-        return super.toString(); //Affichage des attributs de la classe mère, Exercice
     }
-
 }
+

@@ -63,6 +63,6 @@ public abstract class Exercice implements Activite {
     @Override
     public String toString(){
         return  String.format(" nom : %s \n duree : %d minutes \n description : %s",
-                this.getNom(), this.getDuree(), this.getDescription());
+                getNom(), getDuree(), getDescription());
     }
 }

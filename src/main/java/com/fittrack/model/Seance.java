@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+ //Builder Pattern permet de construire des objets complexes séparant sa construction de sa
+// représentation et ainsi pouvoir créer différents types et représentations d'un objet en utilisant le
+// même processus de construction
 /**
  * Séance d'entraînement composée de plusieurs activités
  */
@@ -17,7 +20,17 @@ public class Seance {
     private LocalDate dateSeance ;
     private List<Activite> listeActivitesSeance; //liste de type Activite
 
-    //Création du constructeur de la classe Seance
+    //Création du constructeur de la classe Seance privé pour forcer l'utilisation du Builder
+    //que l'on a déclaré en interne
+    private Seance(Builder pBuilder){
+        this.nomSeance = pBuilder.nomSeance;
+        this.dateSeance = pBuilder.dateSeance;
+        this.listeActivitesSeance = new ArrayList<>(pBuilder.listeActivitesSeance);
+    }
+
+
+
+    //Creation du constructeur de la classe Seance compatible avec les tests déjà existants
     public Seance(String pNomSeance, LocalDate pDateSeance) {
         this.nomSeance = pNomSeance ;
         this.dateSeance = pDateSeance ;
@@ -85,8 +98,59 @@ public class Seance {
      */
     @Override
     public String toString(){
-        return String.format("Nom de la seance : '%s' \nDate : %s \nNombre d'activités : %d \nDuree totale : %d minutes",
+        return String.format("Nom de la seance : '%s' \nDate : %s \nNombre d'activites : %d \nDuree totale : %d minutes",
                 this.nomSeance, this.dateSeance,  this.getNombreActivites(), this.getDureeTotale());
     }
+
+    /**
+     * Builder pour construire une Seance de manière fluide
+     */
+
+    //On crée une classe statique Builder public
+    public static class Builder {
+        //On définit les mêmes attributs que ceux de la classe Seance
+        private String nomSeance ;
+        private LocalDate dateSeance ;
+        private List<Activite> listeActivitesSeance = new ArrayList<>();
+
+        //on définit également ses méthodes getters et setters rassemblé de type Builder
+
+        public Builder setNomSeance(String pNomSeance) {
+            this.nomSeance = pNomSeance ; //setter
+            return this; // getter
+        }
+
+        public Builder setDateSeance(LocalDate pDateSeance) {
+            this.dateSeance = pDateSeance ;
+            return this;
+        }
+        //ajouter une activité
+        public Builder addActivite(Activite pActivite) {
+            this.listeActivitesSeance.add(pActivite) ;
+            return this;
+        }
+
+        //ajouter une liste d'activités
+        public Builder addActivites(List<Activite> pListeActivites) {
+            this.listeActivitesSeance.addAll(pListeActivites) ; // méthode addAll() ajoute les éléments de la liste
+            return this;
+        }
+
+        //On définit les exceptions par la méthode build de type Seance
+        public Seance build(){
+            //si le nom est nul ou une chaîne de caractères vide
+            if (nomSeance == null || nomSeance.trim().isEmpty()){
+                throw new IllegalStateException("Le nom de la seance est demande !");
+            } //sinon si la date est nul
+            else if (dateSeance == null){
+                throw new IllegalStateException("La date de seance est demande !");
+            }
+            else {
+                //Sinon on retourne l'instance de la la classe Seance que l'on a créé grâce à la classe Builder
+                return new Seance(this); // this contient tous les retours des  méthodes de type Builder
+            }
+        }
+    }
+
 
 }
