@@ -1,6 +1,8 @@
 package com.fittrack;
 
 import com.fittrack.model.*;
+import com.fittrack.datasource.DatabaseManager;
+import com.fittrack.dao.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -64,6 +66,13 @@ public class App {
         //System.out.println("Affichage de la seance cree a l aide du pattern Builder : \n"
            //     + seanceAvecBuilder.toString());
 
+        Seance seance = new Seance("Test Seance", LocalDate.now());
+        seance.ajouterActivite(new ExerciceCardio("Course", 30, "5 km"));
+
+        //on récupére le id de la séance sauvegardé
+      //  int id = SeanceDAO.save(seance);
+
+        //on  vérifie que la séance a bien été sauvegardée
 
     }
 }

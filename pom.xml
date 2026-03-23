@@ -36,7 +36,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.2.224</version>
-            <scope>runtime</scope>
+            <!--<scope>runtime</scope>          Le scope runtime est disponible seulement à l'exécution et pas pendant la compilation  -->
         </dependency>
     </dependencies>
 
